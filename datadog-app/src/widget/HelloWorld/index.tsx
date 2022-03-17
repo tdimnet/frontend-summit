@@ -10,7 +10,6 @@ import './widget.css';
 const client = init();
 
 function Widget() {
-
     return (
         <section style={{ padding: '10px' }}>
             <h2>Hello App Developer! 👋</h2>

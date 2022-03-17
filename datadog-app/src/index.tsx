@@ -8,6 +8,10 @@ const init = async () => {
             let widget = await import('./widget/GeoMap');
             return widget.default();
         }
+        case '/webgl-globe-widget': {
+            let widget = await import('./widget/WebGLGlobe')
+            return widget.default()
+        }
         default: {
             let controller = await import('./controller');
             return controller.default();
