@@ -8,6 +8,9 @@ DD_API_KEY = os.environ.get('DD_API_KEY')
 DD_APP_KEY = os.environ.get('DD_APP_KEY')
 AUTH_TOKEN = os.environ.get('AUTH_TOKEN')
 
+FROM = 1647505060000
+TO = 1647508660000
+
 
 def request_emails():
     url = "https://app.datadoghq.eu/api/v2/query/scalar"
@@ -15,7 +18,7 @@ def request_emails():
     payload = json.dumps({
       "meta": {
         "dd_extra_usage_params": {
-          "widget_id": "552688630132494",
+          "widget_id": "2313104896100148",
           "is_user_initiated": True
         }
       },
@@ -58,8 +61,8 @@ def request_emails():
                 ]
               }
             ],
-            "from": 1646818864000,
-            "to": 1646822464000
+            "from": FROM,
+            "to": TO
           }
         }
       ],
@@ -126,8 +129,8 @@ def request_ips():
                 ]
               }
             ],
-            "from": 1646829682000,
-            "to": 1646833282000
+            "from": FROM,
+            "to": TO
           }
         }
       ],
@@ -141,7 +144,6 @@ def request_ips():
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-
     return response
 
 
