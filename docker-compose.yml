@@ -24,6 +24,18 @@ services:
             - '3000:3000'
         volumes:
             - ./datadog-app:/datadog-app
+    flask-proxy:
+      build: flask-proxy
+      env_file:
+        - ./.env
+      environment:
+        FLASK_APP: app.py
+      ports:
+        - "5000:5000"
+      stdin_open: true
+      tty: true
+      volumes:
+        - ./flask-proxy:/app
     setup:
         stdin_open: true
         tty: true
