@@ -29,14 +29,6 @@ function Widget() {
            .catch(err => console.log(`An error occurs`, err));
     }, [ipAddress]);
 
-    useEffect(() => {
-
-        console.log("======")
-        console.log("======")
-        console.log("======")
-
-    }, [])
-
     if (!location) return <div>Loading...</div>;
 
     const { latitude, longitude } = location;
