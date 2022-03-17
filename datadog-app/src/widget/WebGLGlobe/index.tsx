@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import Globe from 'react-globe.gl'
 
+import { useDimensions } from '../../hooks/useDimensions'
+
 
 const client = init()
 
@@ -26,18 +28,15 @@ function Widget() {
             .catch(() => console.log('something went wrong'))
     }, [])
 
-
-    console.log('======')
-    console.log(coordinates)
-    console.log('======')
+    const { height, width } = useDimensions()
 
     return (
         <Globe
             globeImageUrl='./earth-night.jpeg'
-            height={300}
+            height={height}
             pointsData={coordinates}
             ref={globeElt}
-            width={300}
+            width={width}
         />
     )
 }
