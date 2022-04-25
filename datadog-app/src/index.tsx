@@ -1,11 +1,15 @@
 const init = async () => {
     switch (window.location.pathname) {
-        case '/hello-world-widget': {
-            let widget = await import('./widget/HelloWorld');
+        case '/hello-summit-widget': {
+            let widget = await import('./widget/HelloSummit');
             return widget.default();
         }
-        case '/geo-map-widget': {
+        case '/geomap-widget': {
             let widget = await import('./widget/GeoMap');
+            return widget.default();
+        }
+        case '/custom-timeseries-widget': {
+            let widget = await import('./widget/CustomTimeseries');
             return widget.default();
         }
         case '/webgl-globe-widget': {

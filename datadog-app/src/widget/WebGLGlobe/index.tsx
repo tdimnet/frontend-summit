@@ -20,13 +20,15 @@ function Widget() {
             globeElt.current.controls().autoRotateSpeed = 0.3
         }
     }, [])
-
+    
+    /*
     useEffect(() => {
         fetch(`${API_URL}/ips`)
             .then(res => res.json())
             .then(data => setCoordinates(data))
             .catch(() => console.log('something went wrong'))
     }, [])
+    */
 
     const { height, width } = useDimensions()
 
@@ -34,7 +36,6 @@ function Widget() {
         <Globe
             globeImageUrl='./earth-night.jpeg'
             height={height}
-            pointsData={coordinates}
             ref={globeElt}
             width={width}
         />
