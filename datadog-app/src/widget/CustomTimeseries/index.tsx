@@ -6,10 +6,15 @@ const client = init()
 
 function Widget() {
     useEffect(() => {
+        const now = Math.floor(Date.now() / 1000)
+        const nowMinusOneHour = now - 3600
+
         client.api.get('/api/v1/query', {
             params: {
-                from: '1647527858',
-                to: '1647532858',
+                //from: '1647527858',
+                //to: '1650975955',
+                from: nowMinusOneHour.toString(),
+                to: now.toString(),
                 query: 'system.cpu.idle{*}'
             }
         })

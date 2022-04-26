@@ -14,6 +14,19 @@ services:
             - '8080:8080'
         volumes:
             - ./crystal-api:/api
+
+    datadog-agent:
+      image: datadog/agent
+      env_file:
+        - ./.env
+      ports:
+        - "8126:8126"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /proc/:/host/proc/:ro
+        - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+        - /var/lib/docker/containers:/var/lib/docker/containers:ro
+
     datadog-app:
         build: datadog-app
         stdin_open: true
@@ -24,6 +37,7 @@ services:
             - '3010:3000'
         volumes:
             - ./datadog-app:/datadog-app
+
     flask-proxy:
       build: flask-proxy
       env_file:
@@ -36,6 +50,7 @@ services:
       tty: true
       volumes:
         - ./flask-proxy:/app
+
     setup:
         stdin_open: true
         tty: true
@@ -43,3 +58,4 @@ services:
         env_file: ./.env
         volumes:
             - ./setup:/setup
+
