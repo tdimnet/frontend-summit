@@ -5,8 +5,13 @@ import {
     ResponsiveContainer,
     LineChart,
     XAxis,
-    YAxis
+    YAxis,
+    Line,
+    Legend,
+    Tooltip
 } from 'recharts'
+
+import { useDimensions } from '../../hooks/useDimensions'
 
 const client = init()
 
@@ -19,40 +24,38 @@ function Widget() {
 
         client.api.get('/api/v1/query', {
             params: {
-                //from: '1647527858',
-                //to: '1650975955',
                 from: nowMinusOneHour.toString(),
                 to: now.toString(),
                 query: 'system.cpu.idle{*}'
             }
         })
         .then(data => {
-            const timeseriesData = data.series[0]['pointlist']
+            const timeseriesData = data.series[0]['pointlist'].map((d: [number, number]) => ({
+                time: new Date(d[0]).toLocaleTimeString("en-US"),
+                cpu: d[1]
+            }))
             setTimeseriesData(timeseriesData)
         })
         .catch(err => console.log("An error occurs", err))
     }, [])
 
-    console.log("=======")
-    console.log(timeseriesData)
-    console.log("=======")
+
+    const { height, width } = useDimensions()
 
     if (!timeseriesData) {
         return <div>Loading...</div>
     }
 
     return (
-        <div>
-        <h1>Ok, let's go</h1>
-        <ResponsiveContainer>
-            <LineChart
-                data={timeseriesData}
-            >
-                <XAxis />
+        <ResponsiveContainer width={width} height={height}>
+            <LineChart width={width} height={height} data={timeseriesData}>
+                <XAxis dataKey="time" />
                 <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="cpu" stroke="#8884d8" />
             </LineChart>
         </ResponsiveContainer>
-        </div>
     )
 }
 
