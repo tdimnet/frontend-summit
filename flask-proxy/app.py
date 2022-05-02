@@ -24,8 +24,8 @@ def get_emails():
 def get_ips():
     response = request_ips()
     parse_to_json = json.loads((response.text))
-    ips = parse_to_json['data'][0]['attributes']['columns'][0]['values']
 
+    ips = parse_to_json['data'][0]['attributes']['columns'][0]['values']
     ips_with_geo_data = request_ifconfig(ips)
 
     return jsonify(ips_with_geo_data)

@@ -1,6 +1,7 @@
-import requests
+import datetime
 import json
 import os
+import requests
 
 
 DD_SITE = os.environ.get('DD_SITE')
@@ -10,6 +11,10 @@ AUTH_TOKEN = os.environ.get('AUTH_TOKEN')
 
 FROM = 1647505060000
 TO = 1647508660000
+
+NOW_STR = datetime.datetime.now()
+NOW_TIMESTAMP = round(datetime.datetime.timestamp(NOW_STR))
+NOW_MINUS_ONE_HOUR = NOW_TIMESTAMP - 3600
 
 
 def request_emails():
@@ -61,8 +66,8 @@ def request_emails():
                 ]
               }
             ],
-            "from": FROM,
-            "to": TO
+            "from": NOW_MINUS_ONE_HOUR * 1000,
+            "to": NOW_TIMESTAMP * 1000
           }
         }
       ],
@@ -129,8 +134,8 @@ def request_ips():
                 ]
               }
             ],
-            "from": FROM,
-            "to": TO
+            "from": NOW_MINUS_ONE_HOUR * 1000,
+            "to": NOW_TIMESTAMP * 1000
           }
         }
       ],
