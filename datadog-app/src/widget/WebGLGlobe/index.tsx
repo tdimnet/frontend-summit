@@ -21,21 +21,24 @@ function Widget() {
         }
     }, [])
     
-    /*
     useEffect(() => {
         fetch(`${API_URL}/ips`)
             .then(res => res.json())
             .then(data => setCoordinates(data))
             .catch(() => console.log('something went wrong'))
     }, [])
-    */
 
     const { height, width } = useDimensions()
+
+    console.log("======")
+    console.log(coordinates)
+    console.log("======")
 
     return (
         <Globe
             globeImageUrl='./earth-night.jpeg'
             height={height}
+            pointsData={coordinates}
             ref={globeElt}
             width={width}
         />
